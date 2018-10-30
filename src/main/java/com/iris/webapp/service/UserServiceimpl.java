@@ -16,7 +16,7 @@ public class UserServiceimpl implements UserService {
 	UserRepository userRepository;
 
 	@Override
-	public UserDto getUserById(Integer userId) {
+	public UserDto getUserById(int userId) {
 		return UserConverter.entityToDto(userRepository.getOne(userId));
 	}
 
