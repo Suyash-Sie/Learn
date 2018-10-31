@@ -17,3 +17,4 @@ include 'services:webservice'
 
 rootProject.name = 'WebApps'
 include 'WebApp1'
+include 'WebApp2'
