@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Books Shop Online</title>
+<link rel="stylesheet" type="text/css" th:href="@{/styles.css}" />
+</head>
+<body>
+	<th:block th:include="/_header"></th:block>
+	<th:block th:include="/_menu"></th:block>
+
+	<div class="page-title">Metro Order Demo</div>
+	<div class="demo-container">
+		<h3>Select metro station:</h3>
+		<select>
+			<option th:each="i : ${stations}" th:value="${i}"
+				th:text="${i}"></option>
+		</select>
+	</div>
+
+	<th:block th:include="/_footer"></th:block>
+
+</body>
+</html>
