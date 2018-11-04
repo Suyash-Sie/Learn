@@ -13,9 +13,12 @@
       <div class="page-title">Restaurant List</div>
        
       <div class="product-preview-container" th:each="restInfo : ${restaurants}">
+      	<input type="checkbox" name="${restInfo.name}" th:checked="true" />
+      	<!-- 
          <ul>
             <li>Name: <span th:utext="${restInfo.name}"></span></li>
          </ul>
+          -->
       </div>
        
       <br/>

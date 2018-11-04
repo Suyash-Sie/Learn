@@ -1,7 +1,6 @@
 package com.iris.webapp.entity;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -99,10 +98,4 @@ public class Restaurant implements Serializable {
 	public void setStation(Station station) {
 		this.station = station;
 	}
-
-//	@Override
-//	public String toString() {
-//		return "Restaurant [id=" + id + ", name=" + name + ", address=" + address + ", image=" + Arrays.toString(image)
-//				+ ", email=" + email + ", phone=" + phone + ", station=" + station + "]";
-//	}
 }
