@@ -22,9 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.iris.webapp.dao.OrderDAO;
 import com.iris.webapp.dao.ProductDAO;
+import com.iris.webapp.dao.RestaurantDAO;
 import com.iris.webapp.dao.StationDAO;
 import com.iris.webapp.entity.Product;
-import com.iris.webapp.entity.Station;
+import com.iris.webapp.entity.Restaurant;
 import com.iris.webapp.form.CustomerForm;
 import com.iris.webapp.model.CartInfo;
 import com.iris.webapp.model.CustomerInfo;
@@ -45,7 +46,10 @@ public class MainController {
 
 	@Autowired
 	private StationDAO stationDAO;
-
+	
+	@Autowired
+	private RestaurantDAO restaurantDAO;
+	
 	@Autowired
 	private CustomerFormValidator customerFormValidator;
 
@@ -83,6 +87,19 @@ public class MainController {
 		return "index";
 	}
 
+	@RequestMapping({ "/getRestaurants" })
+	public String getRestaurants(Model model, //
+			@RequestParam(value = "station", defaultValue = "") String station) {
+		int stationIdFromName = stationDAO.getStationIdFromName(station);
+		if(stationIdFromName != -1) {
+			List<Restaurant> allRestaurantsForStation = restaurantDAO.getAllRestaurantsForStation(stationIdFromName);
+//			System.out.println(allRestaurantsForStation);
+			model.addAttribute("restaurants", allRestaurantsForStation);
+			return "restaurantList";
+		}
+		return "/403";
+	}
+	
 	// Product List
 	@RequestMapping({ "/productList" })
 	public String listProductHandler(Model model, //

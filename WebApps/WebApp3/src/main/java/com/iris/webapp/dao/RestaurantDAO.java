@@ -12,39 +12,26 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iris.webapp.entity.Product;
-import com.iris.webapp.entity.Station;
+import com.iris.webapp.entity.Restaurant;
 import com.iris.webapp.model.ProductInfo;
 import com.iris.webapp.utils.PaginationResult;
 
 @Transactional
 @Repository
-public class StationDAO {
+public class RestaurantDAO {
  
     @Autowired
     private SessionFactory sessionFactory;
  
-    public List<String> getAllStations() {
+    public List<Restaurant> getAllRestaurantsForStation(int stationId) {
         try {
-            String sql = "Select s.name from " + Station.class.getName() + " s";
+            String sql = "Select r from " + Restaurant.class.getName() + " r where r.station =" + stationId;
  
             Session session = this.sessionFactory.getCurrentSession();
-            Query<String> query = session.createQuery(sql, String.class);
-            return (List<String>) query.getResultList();
+            Query<Restaurant> query = session.createQuery(sql, Restaurant.class);
+            return (List<Restaurant>) query.getResultList();
         } catch (NoResultException e) {
             return null;
-        }
-    }
-    
-    public int getStationIdFromName(String stationName) {
-        try {
-            String sql = "Select s.id from " + Station.class.getName() + " s where s.name = :stationName";
- 
-            Session session = this.sessionFactory.getCurrentSession();
-            Query<Integer> query = session.createQuery(sql, Integer.class);
-            query.setParameter("stationName", stationName);
-            return (int) query.getSingleResult();
-        } catch (NoResultException e) {
-            return -1;
         }
     }
  

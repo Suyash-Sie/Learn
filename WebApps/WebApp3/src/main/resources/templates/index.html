@@ -10,15 +10,17 @@
 	<th:block th:include="/_menu"></th:block>
 
 	<div class="page-title">Metro Order Demo</div>
-	<div class="demo-container">
-		<h3>Select metro station:</h3>
-		<select>
-			<option th:each="i : ${stations}" th:value="${i}"
-				th:text="${i}"></option>
-		</select>
-	</div>
-
-	<th:block th:include="/_footer"></th:block>
-
+	<form action="#" th:action="@{/getRestaurants}" th:object="${station}"
+		method="GET">
+		<div class="demo-container">
+			<h3>Select metro station:</h3>
+			<select id="station" name="station">
+				<option th:each="i : ${stations}" th:value="${i}" th:text="${i}"></option>
+			</select>
+		</div>
+		<div>
+			<button type="submit" name="ok">OK</button>
+		</div>
+	</form>
 </body>
 </html>

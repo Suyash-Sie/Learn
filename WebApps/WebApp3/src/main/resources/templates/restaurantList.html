@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+   <head>
+      <meta charset="UTF-8">
+      <title>Product List</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+   </head>
+   <body>
+      <th:block th:include="/_header"></th:block>
+      <th:block th:include="/_menu"></th:block>
+       
+      <div class="page-title">Restaurant List</div>
+       
+      <div class="product-preview-container" th:each="restInfo : ${restaurants}">
+         <ul>
+            <li>Name: <span th:utext="${restInfo.name}"></span></li>
+         </ul>
+      </div>
+       
+      <br/>
+      <th:block th:include="/_footer"></th:block>
+       
+   </body>
+</html>

@@ -23,7 +23,7 @@ public class Station implements Serializable {
 	public Station() {
 	}
 
-	public int getCode() {
+	public int getId() {
 		return id;
 	}
 
