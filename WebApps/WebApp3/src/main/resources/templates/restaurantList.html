@@ -10,7 +10,7 @@
       <th:block th:include="/_header"></th:block>
       <th:block th:include="/_menu"></th:block>
        
-      <div class="page-title">Restaurant List</div>
+      <div class="page-title">Select your item</div>
        
       <div class="product-preview-container" th:each="restInfo : ${restaurants}">
       	<input type="checkbox" name="${restInfo.name}" th:checked="true"> <span th:utext="${restInfo.name}"/> <br>
@@ -20,7 +20,20 @@
          </ul>
           -->
       </div>
-       
+      <div>
+      	<table>
+    		<tr th:each="element : ${foodItems}">
+		        <td/>
+		        <table>
+		            <tr th:each="food : ${element.value}">
+		                <td th:text="${food.name}"/>
+		                <td th:text="${food.description}"/>
+		                <td th:text="${food.price}"/>
+		            </tr>
+		        </table>
+    		</tr>
+		</table>
+      </div> 
       <br/>
       <th:block th:include="/_footer"></th:block>
        

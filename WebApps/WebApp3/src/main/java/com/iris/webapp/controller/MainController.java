@@ -1,7 +1,9 @@
 package com.iris.webapp.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.iris.webapp.dao.FoodDAO;
 import com.iris.webapp.dao.OrderDAO;
 import com.iris.webapp.dao.ProductDAO;
 import com.iris.webapp.dao.RestaurantDAO;
 import com.iris.webapp.dao.StationDAO;
+import com.iris.webapp.entity.Food;
 import com.iris.webapp.entity.Product;
 import com.iris.webapp.entity.Restaurant;
 import com.iris.webapp.form.CustomerForm;
@@ -46,10 +50,13 @@ public class MainController {
 
 	@Autowired
 	private StationDAO stationDAO;
-	
+
 	@Autowired
 	private RestaurantDAO restaurantDAO;
-	
+
+	@Autowired
+	private FoodDAO foodDAO;
+
 	@Autowired
 	private CustomerFormValidator customerFormValidator;
 
@@ -91,15 +98,20 @@ public class MainController {
 	public String getRestaurants(Model model, //
 			@RequestParam(value = "station", defaultValue = "") String station) {
 		int stationIdFromName = stationDAO.getStationIdFromName(station);
-		if(stationIdFromName != -1) {
+		if (stationIdFromName != -1) {
 			List<Restaurant> allRestaurantsForStation = restaurantDAO.getAllRestaurantsForStation(stationIdFromName);
-//			System.out.println(allRestaurantsForStation);
 			model.addAttribute("restaurants", allRestaurantsForStation);
+			Map<Restaurant, List<Food>> foodItemsPerRestaurant = new HashMap<>();
+			for (Restaurant restaurant : allRestaurantsForStation) {
+				List<Food> foodItemsOfRestaurant = foodDAO.getFoodItemsOfRestaurant(restaurant.getId());
+				foodItemsPerRestaurant.put(restaurant, foodItemsOfRestaurant);
+			}
+			model.addAttribute("foodItems", foodItemsPerRestaurant);
 			return "restaurantList";
 		}
 		return "/403";
 	}
-	
+
 	// Product List
 	@RequestMapping({ "/productList" })
 	public String listProductHandler(Model model, //
