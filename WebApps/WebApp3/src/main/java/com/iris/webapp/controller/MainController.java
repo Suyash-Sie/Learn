@@ -33,6 +33,7 @@ import com.iris.webapp.entity.Restaurant;
 import com.iris.webapp.form.CustomerForm;
 import com.iris.webapp.model.CartInfo;
 import com.iris.webapp.model.CustomerInfo;
+import com.iris.webapp.model.Foo;
 import com.iris.webapp.model.ProductInfo;
 import com.iris.webapp.utils.PaginationResult;
 import com.iris.webapp.utils.Utils;
@@ -107,9 +108,19 @@ public class MainController {
 				foodItemsPerRestaurant.put(restaurant, foodItemsOfRestaurant);
 			}
 			model.addAttribute("foodItems", foodItemsPerRestaurant);
+			model.addAttribute("foo", new Foo());
 			return "restaurantList";
 		}
 		return "/403";
+	}
+	
+	@RequestMapping({ "/filterItems" })
+	public String filterFoodItems(Model model, //
+			@ModelAttribute(value="foo") Foo foo) {
+		for (String string : foo.getCheckedItems()) {
+			System.out.println(string);
+		}
+		return "restaurantList";
 	}
 
 	// Product List
