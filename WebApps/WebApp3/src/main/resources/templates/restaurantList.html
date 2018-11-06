@@ -14,7 +14,7 @@
       
       	<form action="#" th:action="@{/filterItems}" th:object="${foo}" method="POST">
       		<div class="product-preview-container" th:each="restInfo : ${restaurants}">
-      			<input type="checkbox" th:field="*{checkedItems}" th:value="${restInfo.name}" th:checked="true"/>
+      			<input type="checkbox" th:field="*{checkedItems}" th:value="${restInfo.name}"/>
       			<label th:for="${#ids.prev('checkedItems')}" th:text="${restInfo.name}"/>
 		      	<!-- 
 		         <ul>

@@ -1,6 +1,7 @@
 package com.iris.webapp.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,12 +104,16 @@ public class MainController {
 			List<Restaurant> allRestaurantsForStation = restaurantDAO.getAllRestaurantsForStation(stationIdFromName);
 			model.addAttribute("restaurants", allRestaurantsForStation);
 			Map<Restaurant, List<Food>> foodItemsPerRestaurant = new HashMap<>();
+			List<String> restNames = new ArrayList<>();
 			for (Restaurant restaurant : allRestaurantsForStation) {
 				List<Food> foodItemsOfRestaurant = foodDAO.getFoodItemsOfRestaurant(restaurant.getId());
 				foodItemsPerRestaurant.put(restaurant, foodItemsOfRestaurant);
+				restNames.add(restaurant.getName());
 			}
+			Foo foo = new Foo();
+			foo.setCheckedItems(restNames);
 			model.addAttribute("foodItems", foodItemsPerRestaurant);
-			model.addAttribute("foo", new Foo());
+			model.addAttribute("foo", foo);
 			return "restaurantList";
 		}
 		return "/403";
