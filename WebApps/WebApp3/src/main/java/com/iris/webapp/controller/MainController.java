@@ -3,8 +3,10 @@ package com.iris.webapp.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,6 +64,8 @@ public class MainController {
 	@Autowired
 	private CustomerFormValidator customerFormValidator;
 
+	private Map<Restaurant, List<Food>> foodItemsPerRestaurant;
+
 	@InitBinder
 	public void myInitBinder(WebDataBinder dataBinder) {
 		Object target = dataBinder.getTarget();
@@ -103,7 +107,7 @@ public class MainController {
 		if (stationIdFromName != -1) {
 			List<Restaurant> allRestaurantsForStation = restaurantDAO.getAllRestaurantsForStation(stationIdFromName);
 			model.addAttribute("restaurants", allRestaurantsForStation);
-			Map<Restaurant, List<Food>> foodItemsPerRestaurant = new HashMap<>();
+			foodItemsPerRestaurant = new HashMap<>();
 			List<String> restNames = new ArrayList<>();
 			for (Restaurant restaurant : allRestaurantsForStation) {
 				List<Food> foodItemsOfRestaurant = foodDAO.getFoodItemsOfRestaurant(restaurant.getId());
@@ -122,10 +126,14 @@ public class MainController {
 	@RequestMapping({ "/filterItems" })
 	public String filterFoodItems(Model model, //
 			@ModelAttribute(value="foo") Foo foo) {
-		for (String string : foo.getCheckedItems()) {
-			System.out.println(string);
+		Iterator<Entry<Restaurant, List<Food>>> iterator = foodItemsPerRestaurant.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Map.Entry<Restaurant, List<Food>> pair = (Map.Entry<Restaurant, List<Food>>)iterator.next();
+			if(!foo.getCheckedItems().contains(pair.getKey().getName()))
+				iterator.remove();
 		}
-		return "restaurantList";
+		model.addAttribute("foodItems", foodItemsPerRestaurant);
+		return "filteredItemsList";
 	}
 
 	// Product List
