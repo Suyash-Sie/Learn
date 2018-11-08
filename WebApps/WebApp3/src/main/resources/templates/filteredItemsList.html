@@ -11,20 +11,25 @@
       	<th:block th:include="/_menu"></th:block>
        
       	<div class="page-title">Filtered Items</div>
+      	<form action="#" th:action="@{/addToCart}" th:object="${foo}" method="POST">
       	<div>
       		<table>
       			<tr th:each="element : ${foodItems}">
       				<td/>
 			        <table>
 			        	<tr th:each="food : ${element.value}">
-			        		<td th:text="${food.name}"/>
+				        	<input type="checkbox" th:field="*{checkedItems}" th:value="${food.name}"/>
+				        	<label th:for="${#ids.prev('checkedItems')}" th:text="${food.name}"/>
 			                <td th:text="${food.description}"/>
 			                <td th:text="${food.price}"/>
 			            </tr>
 			        </table>
 	    		</tr>
 			</table>
-	    </div> 
+	    </div>
+	    <div>
+			<button type="submit" name="buy">Add To Cart</button>
+		</div> 
       	<br/>
       	<th:block th:include="/_footer"></th:block>
    	</body>

@@ -100,7 +100,7 @@ public class MainController {
 		return "index";
 	}
 
-	@RequestMapping({ "/getRestaurants" })
+	@RequestMapping(value = { "/getRestaurants" }, method = RequestMethod.POST)
 	public String getRestaurants(Model model, //
 			@RequestParam(value = "station", defaultValue = "") String station) {
 		int stationIdFromName = stationDAO.getStationIdFromName(station);
@@ -123,7 +123,7 @@ public class MainController {
 		return "/403";
 	}
 	
-	@RequestMapping({ "/filterItems" })
+	@RequestMapping(value = { "/filterItems" }, method = RequestMethod.POST)
 	public String filterFoodItems(Model model, //
 			@ModelAttribute(value="foo") Foo foo) {
 		Iterator<Entry<Restaurant, List<Food>>> iterator = foodItemsPerRestaurant.entrySet().iterator();
@@ -133,6 +133,16 @@ public class MainController {
 				iterator.remove();
 		}
 		model.addAttribute("foodItems", foodItemsPerRestaurant);
+		return "filteredItemsList";
+	}
+
+	@RequestMapping(value = { "/addToCart" }, method = RequestMethod.POST)
+	public String addFoodItems(Model model, //
+			@ModelAttribute(value="foo") Foo foo) {
+		for (String string : foo.getCheckedItems()) {
+			System.out.println(string);
+		}
+		
 		return "filteredItemsList";
 	}
 
