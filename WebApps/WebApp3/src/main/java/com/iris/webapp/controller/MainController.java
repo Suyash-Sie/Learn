@@ -142,7 +142,9 @@ public class MainController {
 		for (String string : foo.getCheckedItems()) {
 			System.out.println(string);
 		}
-		
+		for (String string : foo.getQuantity()) {
+			System.out.println(string);
+		}
 		return "filteredItemsList";
 	}
 

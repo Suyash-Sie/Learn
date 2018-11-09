@@ -14,17 +14,15 @@
       	<form action="#" th:action="@{/addToCart}" th:object="${foo}" method="POST">
       	<div>
       		<table>
-      			<tr th:each="element : ${foodItems}">
-      				<td/>
-			        <table>
-			        	<tr th:each="food : ${element.value}">
-				        	<input type="checkbox" th:field="*{checkedItems}" th:value="${food.name}"/>
-				        	<label th:for="${#ids.prev('checkedItems')}" th:text="${food.name}"/>
-			                <td th:text="${food.description}"/>
-			                <td th:text="${food.price}"/>
-			            </tr>
-			        </table>
-	    		</tr>
+	  			<p th:each="element : ${foodItems}">
+		        	<tr th:each="food : ${element.value}">
+			        	<input type="checkbox" th:field="*{checkedItems}" th:value="${food.name}"/>
+			        	<label th:for="${#ids.prev('checkedItems')}" th:text="${food.name}"/>
+		                <td th:text="${food.description}"/>
+		                <td th:text="${food.price}"/>
+		                Quantity: <input type="text" th:field="*{quantity}" />
+		            </tr>
+	    		</p>
 			</table>
 	    </div>
 	    <div>
