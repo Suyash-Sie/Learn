@@ -12,13 +12,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Order_Details")
+@Table(name = "order_details")
 public class OrderDetail implements Serializable {
 
 	private static final long serialVersionUID = 7550745928843183535L;
 
 	@Id
-	@Column(name = "ID", length = 50, nullable = false)
+	@Column(name = "id", length = 11, nullable = false)
 	private String id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
