@@ -26,6 +26,28 @@ public class User implements Serializable {
 	@Column(name = "email", length = 500, nullable = true)
 	private String email;
 
+	@Column(name = "password", length = 128, nullable = false)
+	private String password;
+
+	@Column(name = "role", length = 20, nullable = false)
+	private Role userRole;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Role getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(Role userRole) {
+		this.userRole = userRole;
+	}
+
 	public String getPhone() {
 		return phone;
 	}
@@ -59,5 +81,9 @@ public class User implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public static enum Role {
+		VENDOR, CUSTOMER
 	}
 }
