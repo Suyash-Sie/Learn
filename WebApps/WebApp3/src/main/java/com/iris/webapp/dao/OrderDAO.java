@@ -64,20 +64,20 @@ public class OrderDAO {
 
 		List<CartLineInfo> lines = cartInfo.getCartLines();
 
-		for (CartLineInfo line : lines) {
-			OrderDetail detail = new OrderDetail();
-			detail.setId(UUID.randomUUID().toString());
-			detail.setOrder(order);
-			detail.setAmount(line.getAmount());
-			detail.setPrice(line.getProductInfo().getPrice());
-			detail.setQuanity(line.getQuantity());
-
-			String code = line.getProductInfo().getCode();
-			Product product = this.productDAO.findProduct(code);
-			detail.setProduct(product);
-
-			session.persist(detail);
-		}
+//		for (CartLineInfo line : lines) {
+//			OrderDetail detail = new OrderDetail();
+//			detail.setId(UUID.randomUUID().toString());
+//			detail.setOrder(order);
+//			detail.setAmount(line.getAmount());
+//			detail.setPrice(line.getProductInfo().getPrice());
+//			detail.setQuanity(line.getQuantity());
+//
+//			String code = line.getProductInfo().getCode();
+//			Product product = this.productDAO.findProduct(code);
+//			detail.setProduct(product);
+//
+//			session.persist(detail);
+//		}
 
 		// Order Number!
 		cartInfo.setOrderNum(orderNum);

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<meta charset="UTF-8">
+      	<title>Product List</title>
+      	<link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+   	</head>
+   	<body>
+    	<th:block th:include="/_header"></th:block>
+      	<th:block th:include="/_menu"></th:block>
+       
+      	<div class="page-title">Your cart</div>
+      	<form action="#" th:action="@{/addToCart}" th:object="${foo}" method="POST">
+      	<div>
+      		<table>
+	  			<p th:each="element : ${cartItems}">
+		        	<tr th:each="food : ${element.value}">
+			        	<label th:for="${#ids.prev('checkedItems')}" th:text="${food.name}"/>
+		            </tr>
+	    		</p>
+			</table>
+	    </div>
+	    <div>
+			<button type="submit" name="buy">Buy</button>
+		</div> 
+   	</body>
+</html>

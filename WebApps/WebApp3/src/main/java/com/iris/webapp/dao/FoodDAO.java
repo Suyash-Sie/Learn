@@ -30,4 +30,27 @@ public class FoodDAO {
             return null;
         }
     }
+
+    public Food getFoodFromName(String name) {
+    	try {
+    		String sql = "Select f from " + Food.class.getName() + " f where f.name =" + name;
+    		Session session = this.sessionFactory.getCurrentSession();
+    		Query<Food> query = session.createQuery(sql, Food.class);
+    		return (Food) query.getSingleResult();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
+
+    public List<Food> getFoodItemsFromListOfNames(List<String> names) {
+    	try {
+    		String sql = "Select f from " + Food.class.getName() + " f where f.name in (:names)";
+    		Session session = this.sessionFactory.getCurrentSession();
+    		Query<Food> query = session.createQuery(sql, Food.class);
+    		query.setParameterList("names", names);
+    		return (List<Food>) query.getResultList();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
 }

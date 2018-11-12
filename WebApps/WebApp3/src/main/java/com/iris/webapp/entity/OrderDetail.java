@@ -1,15 +1,18 @@
 package com.iris.webapp.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "order_details")
@@ -19,49 +22,48 @@ public class OrderDetail implements Serializable {
 
 	@Id
 	@Column(name = "id", length = 11, nullable = false)
-	private String id;
+	private int id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ORDER_ID", nullable = false, //
-			foreignKey = @ForeignKey(name = "ORDER_DETAIL_ORD_FK"))
-	private Order order;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PRODUCT_ID", nullable = false, //
-			foreignKey = @ForeignKey(name = "ORDER_DETAIL_PROD_FK"))
-	private Product product;
-
-	@Column(name = "Quanity", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private User user;
+	
+	@OneToMany
+	@JoinColumn(name = "foodId")
+	private List<Food> foods;
+	
+	@Column(name = "quanity", nullable = false)
 	private int quanity;
 
-	@Column(name = "Price", nullable = false)
-	private double price;
+	@Column(name = "total", nullable = false)
+	private double total;
 
-	@Column(name = "Amount", nullable = false)
-	private double amount;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "creationDate", nullable = false)
+	private Date createDate;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Order getOrder() {
-		return order;
+	public User getUser() {
+		return user;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Product getProduct() {
-		return product;
+	public List<Food> getFood() {
+		return foods;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setFood(List<Food> foods) {
+		this.foods = foods;
 	}
 
 	public int getQuanity() {
@@ -72,20 +74,19 @@ public class OrderDetail implements Serializable {
 		this.quanity = quanity;
 	}
 
-	public double getPrice() {
-		return price;
+	public double getTotal() {
+		return total;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
-	public double getAmount() {
-		return amount;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
-
 }
