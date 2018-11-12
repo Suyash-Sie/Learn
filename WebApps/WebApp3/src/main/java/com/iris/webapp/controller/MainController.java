@@ -27,10 +27,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.iris.webapp.dao.FoodDAO;
 import com.iris.webapp.dao.OrderDAO;
+import com.iris.webapp.dao.OrderDetailDAO;
 import com.iris.webapp.dao.ProductDAO;
 import com.iris.webapp.dao.RestaurantDAO;
 import com.iris.webapp.dao.StationDAO;
 import com.iris.webapp.entity.Food;
+import com.iris.webapp.entity.OrderDetail;
 import com.iris.webapp.entity.Product;
 import com.iris.webapp.entity.Restaurant;
 import com.iris.webapp.form.CustomerForm;
@@ -60,6 +62,9 @@ public class MainController {
 
 	@Autowired
 	private FoodDAO foodDAO;
+
+	@Autowired
+	private OrderDetailDAO orderDetailDAO;
 
 	@Autowired
 	private CustomerFormValidator customerFormValidator;
@@ -139,13 +144,21 @@ public class MainController {
 	@RequestMapping(value = { "/addToCart" }, method = RequestMethod.POST)
 	public String addFoodItems(Model model, //
 			@ModelAttribute(value="foo") Foo foo) {
-		for (String string : foo.getCheckedItems()) {
-			System.out.println(string);
-		}
-		for (String string : foo.getQuantity()) {
-			System.out.println(string);
-		}
-		return "filteredItemsList";
+		Map<String, String> cartItems = new HashMap<>();
+		for(int i=0; i<foo.getCheckedItems().size(); i++)
+			cartItems.put(foo.getCheckedItems().get(i), foo.getQuantity().get(i));
+		model.addAttribute("cartItems", createOrderDetail(foo));
+		return "viewCart";
+	}
+
+	private OrderDetail createOrderDetail(Foo foo) {
+		OrderDetail detail = new OrderDetail();
+		
+		int maxOrderId = orderDetailDAO.getMaxOrderId();
+		detail.setId(maxOrderId + 1);
+		List<Food> foodItemsFromListOfNames = foodDAO.getFoodItemsFromListOfNames(foo.getCheckedItems());
+		detail.setFood(foodItemsFromListOfNames);
+		return detail;
 	}
 
 	// Product List
