@@ -3,7 +3,7 @@
 <div>
     <select (change)="getRestaurantsForStation($event.target.value)">
         <option value="0">Select</option>
-        <option *ngFor="let station of stations" value={{station}}>
+        <option *ngFor="let station of stations" value = {{station}}>
             {{station}}
         </option>
     </select>

@@ -10,7 +10,7 @@ export class StationService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<any> {
+  getAllStations(): Observable<any> {
     return this.http.get('//localhost:8080/getStations');
   }
 }

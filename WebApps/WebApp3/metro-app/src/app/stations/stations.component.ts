@@ -13,11 +13,14 @@ export class StationsComponent implements OnInit {
   constructor(private stationService: StationService) { }
 
   ngOnInit() {
-    this.stationService.getAll().subscribe(data => {
+    this.stationService.getAllStations().subscribe(data => {
       this.stations = data;
     });
   }
   
-  getRestaurantsForStation(filterVal: any) { }
+  getRestaurantsForStation(filterVal: any) { 
+	if(filterVal != "0")
+		this.stationService.getAllStations();
+  }
 
 }

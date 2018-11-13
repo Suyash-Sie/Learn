@@ -106,13 +106,13 @@ public class MainController {
 	}
 
 	@RequestMapping(value = { "/getRestaurants" }, method = RequestMethod.POST)
-	public String getRestaurants(Model model, //
+	public Map<Restaurant, List<Food>> getRestaurants(Model model, //
 			@RequestParam(value = "station", defaultValue = "") String station) {
 		int stationIdFromName = stationDAO.getStationIdFromName(station);
+		foodItemsPerRestaurant = new HashMap<>();
 		if (stationIdFromName != -1) {
 			List<Restaurant> allRestaurantsForStation = restaurantDAO.getAllRestaurantsForStation(stationIdFromName);
 			model.addAttribute("restaurants", allRestaurantsForStation);
-			foodItemsPerRestaurant = new HashMap<>();
 			List<String> restNames = new ArrayList<>();
 			for (Restaurant restaurant : allRestaurantsForStation) {
 				List<Food> foodItemsOfRestaurant = foodDAO.getFoodItemsOfRestaurant(restaurant.getId());
@@ -123,9 +123,8 @@ public class MainController {
 			foo.setCheckedItems(restNames);
 			model.addAttribute("foodItems", foodItemsPerRestaurant);
 			model.addAttribute("foo", foo);
-			return "restaurantList";
 		}
-		return "/403";
+		return foodItemsPerRestaurant;
 	}
 	
 	@RequestMapping(value = { "/filterItems" }, method = RequestMethod.POST)
