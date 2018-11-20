@@ -22,7 +22,7 @@ public class StationDAO {
  
     public List<Station> getAllStations() {
         try {
-            String sql = "Select s from " + Station.class.getName() + " s";
+            String sql = "Select s from " + Station.class.getName() + " s order by name";
  
             Session session = this.sessionFactory.getCurrentSession();
             Query<Station> query = session.createQuery(sql, Station.class);
