@@ -14,14 +14,14 @@ export class StationsComponent implements OnInit {
 
   ngOnInit() {
     this.stationService.getAllStations().subscribe(data => {
-		console.log(data);
-      this.stations = data.name;
+      this.stations = data;
     });
   }
   
-  getRestaurantsForStation(filterVal: any) { 
-	if(filterVal != "0")
-		this.stationService.getAllRestaurants(filterVal);
+  getRestaurantsForStation(filterVal: any) {
+	console.log(filterVal); 
+	//if(filterVal != "0")
+	//	this.stationService.getAllRestaurants(filterVal);
   }
 
 }
