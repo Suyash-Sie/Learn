@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,7 +14,7 @@ public class Station implements Serializable {
 
 	private static final long serialVersionUID = -1000119078147252957L;
 
-	@Id
+	@Id @GeneratedValue
 	@Column(name = "id", length = 11, nullable = false)
 	private int id;
 

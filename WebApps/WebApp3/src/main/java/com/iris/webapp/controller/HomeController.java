@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iris.webapp.dao.StationDAO;
+import com.iris.webapp.entity.Station;
 
 @RestController
 public class HomeController {
@@ -18,8 +19,8 @@ public class HomeController {
 
 	@RequestMapping("/getStations")
 	@CrossOrigin(origins = "http://localhost:4200")
-	public List<String> home(Model model) {
-		List<String> allStations = stationDAO.getAllStations();
+	public List<Station> home(Model model) {
+		List<Station> allStations = stationDAO.getAllStations();
 		return allStations;
 	}
 

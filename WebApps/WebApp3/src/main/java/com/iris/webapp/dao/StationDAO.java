@@ -20,13 +20,13 @@ public class StationDAO {
     @Autowired
     private SessionFactory sessionFactory;
  
-    public List<String> getAllStations() {
+    public List<Station> getAllStations() {
         try {
-            String sql = "Select s.name from " + Station.class.getName() + " s";
+            String sql = "Select s from " + Station.class.getName() + " s";
  
             Session session = this.sessionFactory.getCurrentSession();
-            Query<String> query = session.createQuery(sql, String.class);
-            return (List<String>) query.getResultList();
+            Query<Station> query = session.createQuery(sql, Station.class);
+            return (List<Station>) query.getResultList();
         } catch (NoResultException e) {
             return null;
         }

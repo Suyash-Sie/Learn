@@ -98,12 +98,12 @@ public class MainController {
 		return "/403";
 	}
 
-	@RequestMapping("/")
-	public String home(Model model) {
-		List<String> allStations = stationDAO.getAllStations();
-		model.addAttribute("stations", allStations);
-		return "index";
-	}
+//	@RequestMapping("/")
+//	public String home(Model model) {
+//		List<String> allStations = stationDAO.getAllStations();
+//		model.addAttribute("stations", allStations);
+//		return "index";
+//	}
 
 	@RequestMapping(value = { "/getRestaurants" }, method = RequestMethod.POST)
 	public Map<Restaurant, List<Food>> getRestaurants(Model model, //
