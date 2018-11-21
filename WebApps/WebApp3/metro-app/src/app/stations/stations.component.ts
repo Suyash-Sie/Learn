@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StationService } from '../station.service';
+import { RestaurantService } from '../restaurant.service';
 
 @Component({
   selector: 'app-stations',
@@ -9,8 +10,9 @@ import { StationService } from '../station.service';
 export class StationsComponent implements OnInit {
 
   stations: Array<any>;
-
-  constructor(private stationService: StationService) { }
+  restaurants: Array<any>;
+  
+  constructor(private stationService: StationService, private restService: RestaurantService) { }
 
   ngOnInit() {
     this.stationService.getAllStations().subscribe(data => {
@@ -19,9 +21,10 @@ export class StationsComponent implements OnInit {
   }
   
   getRestaurantsForStation(filterVal: any) {
-	console.log(filterVal); 
-	//if(filterVal != "0")
-	//	this.stationService.getAllRestaurants(filterVal);
+	if(filterVal != "0") {
+		this.restService.getRestaurantsAtStation(filterVal).subscribe(data => 
+		{	return this.restaurants = data;	}
+		);
+	}
   }
-
 }

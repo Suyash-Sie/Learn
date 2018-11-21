@@ -30,7 +30,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/station/{id}")
-	public List<Restaurant> getRestaurantsForStation(@PathVariable("id") int id) {
+	public List<Restaurant> getRestaurantsAtStation(@PathVariable("id") int id) {
 		List<Restaurant> allRestaurants = restDAO.getAllRestaurantsForStation(id);
 		return allRestaurants;
 	}
