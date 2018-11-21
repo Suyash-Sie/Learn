@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StationService } from '../station.service';
 import { RestaurantService } from '../restaurant.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stations',
@@ -12,7 +13,7 @@ export class StationsComponent implements OnInit {
   stations: Array<any>;
   restaurants: Array<any>;
   
-  constructor(private stationService: StationService, private restService: RestaurantService) { }
+  constructor(private stationService: StationService, private restService: RestaurantService, private router: Router) { }
 
   ngOnInit() {
     this.stationService.getAllStations().subscribe(data => {
@@ -25,6 +26,7 @@ export class StationsComponent implements OnInit {
 		this.restService.getRestaurantsAtStation(filterVal).subscribe(data => 
 		{	return this.restaurants = data;	}
 		);
+		this.router.navigate(['/station/' + filterVal]);
 	}
   }
 }
