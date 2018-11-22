@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestaurantService } from '../restaurant.service';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-restaurants',
@@ -10,8 +12,18 @@ export class RestaurantsComponent implements OnInit {
 	
   restaurants: Array<any>;
 	
-  constructor(private restService: RestaurantService) { }
+  constructor(private route: ActivatedRoute, 
+			  private restService: RestaurantService, 
+			  private location: Location) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+	this.getStation();
+  }
 
+  getStation(): void {
+	const id = this.route.snapshot.paramMap.get('id');
+	this.restService.getRestaurantsAtStation(id).subscribe(data => 
+		{	return this.restaurants = data;	}
+		);
+}
 }
