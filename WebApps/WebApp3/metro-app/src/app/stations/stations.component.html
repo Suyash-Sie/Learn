@@ -9,7 +9,8 @@
     </select>
 </div>
 <div>
-	<li *ngFor="let rest of restaurants">
-	  <span>{{rest.name}}</span>
-	</li>
+	<label *ngFor="let rest of restaurants; let i = index">
+		<input type="checkbox">
+		{{rest.name}}
+	</label>
 </div>
