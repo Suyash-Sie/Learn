@@ -4,26 +4,25 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-restaurants',
-  templateUrl: './restaurants.component.html',
-  styleUrls: ['./restaurants.component.css']
+	selector: 'app-restaurants',
+	templateUrl: './restaurants.component.html',
+	styleUrls: ['./restaurants.component.css']
 })
 export class RestaurantsComponent implements OnInit {
+	restaurants: Array<any>;
 	
-  restaurants: Array<any>;
-	
-  constructor(private route: ActivatedRoute, 
-			  private restService: RestaurantService, 
-			  private location: Location) { }
+	constructor(private route: ActivatedRoute, 
+				private restService: RestaurantService, 
+				private location: Location) { }
 
-  ngOnInit() { 
-	this.getStation();
-  }
+	ngOnInit() {
+		this.getStation();
+	}
 
-  getStation(): void {
-	const id = this.route.snapshot.paramMap.get('id');
-	this.restService.getRestaurantsAtStation(id).subscribe(data => 
+	getStation(): void {
+		const id = this.route.snapshot.paramMap.get('id');
+		this.restService.getRestaurantsAtStation(id).subscribe(data => 
 		{	return this.restaurants = data;	}
 		);
-}
+	}
 }

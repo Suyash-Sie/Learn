@@ -19,10 +19,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = { //
-		DataSourceAutoConfiguration.class, //
-		DataSourceTransactionManagerAutoConfiguration.class, //
-		HibernateJpaAutoConfiguration.class })
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class,
+		DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class BootDemoApplication {
 
 	@Autowired
