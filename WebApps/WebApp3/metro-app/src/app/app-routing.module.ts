@@ -10,7 +10,7 @@ const routes: Routes = [
 	},
 	{ 
 		path: 'station/:id', 
-		component: RestaurantsComponent 
+		component: StationsComponent 
 	}
 ];
 
