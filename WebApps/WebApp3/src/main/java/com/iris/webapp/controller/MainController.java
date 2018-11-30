@@ -155,7 +155,7 @@ public class MainController {
 		
 		int maxOrderId = orderDetailDAO.getMaxOrderId();
 		detail.setId(maxOrderId + 1);
-		List<Food> foodItemsFromListOfNames = foodDAO.getFoodItemsFromListOfNames(foo.getCheckedItems());
+		List<Food> foodItemsFromListOfNames = foodDAO.getFoodItemsFromListOfRestaurantIds(foo.getCheckedItems());
 		detail.setFood(foodItemsFromListOfNames);
 		return detail;
 	}

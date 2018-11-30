@@ -42,12 +42,12 @@ public class FoodDAO {
     	}
     }
 
-    public List<Food> getFoodItemsFromListOfNames(List<String> names) {
+    public List<Food> getFoodItemsFromListOfRestaurantIds(List<String> ids) {
     	try {
-    		String sql = "Select f from " + Food.class.getName() + " f where f.name in (:names)";
+    		String sql = "Select f from " + Food.class.getName() + " f where f.restaurant in (:ids)";
     		Session session = this.sessionFactory.getCurrentSession();
     		Query<Food> query = session.createQuery(sql, Food.class);
-    		query.setParameterList("names", names);
+    		query.setParameterList("ids", ids);
     		return (List<Food>) query.getResultList();
     	} catch (NoResultException e) {
     		return null;

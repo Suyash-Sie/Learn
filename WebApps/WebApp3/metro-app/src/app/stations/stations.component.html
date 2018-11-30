@@ -10,7 +10,7 @@
 </div>
 <div>
 	<label *ngFor="let rest of restaurants; let i = index">
-		<input type="checkbox">
+		<input type="checkbox" [attr.checked]="true">
 		{{rest.name}}
 	</label>
 </div>
