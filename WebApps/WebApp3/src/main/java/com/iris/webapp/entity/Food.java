@@ -3,8 +3,12 @@ package com.iris.webapp.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -18,6 +22,7 @@ public class Food implements Serializable {
 	private static final long serialVersionUID = -1000119078147252957L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", length = 11, nullable = false)
 	private int id;
 
@@ -29,6 +34,7 @@ public class Food implements Serializable {
 
 	@Lob
 	@Column(name = "image", length = Integer.MAX_VALUE, nullable = true)
+	@Basic(fetch = FetchType.LAZY)
 	private byte[] image;
 
 	@Column(name = "description", length = 500, nullable = true)
@@ -37,7 +43,7 @@ public class Food implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "restId")
 	private Restaurant restaurant;
-	
+
 	public Food() {
 	}
 

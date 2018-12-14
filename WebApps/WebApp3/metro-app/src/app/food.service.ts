@@ -11,7 +11,7 @@ export class FoodService {
   
 	constructor(private http: HttpClient) { }
 	
-	getFoodItemsAtRestaurants(ids: Array<any>): Observable<any> {
-		return this.http.get(this.REST_API + '/' + ids);
+	getFoodItemsAtRestaurants(ids: Array<number>): Observable<any> {
+		return this.http.get(this.REST_API + ids);
 	}
 }

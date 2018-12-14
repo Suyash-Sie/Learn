@@ -29,4 +29,13 @@ public class OrderDetailDAO {
 			return 0;
 		}
 	}
+
+	public int createOrder(OrderDetail order) {
+		String sql = "insert into " + OrderDetail.class.getName() + " values ?";
+		Session session = this.sessionFactory.getCurrentSession();
+		Query<OrderDetail> query = session.createQuery(sql, OrderDetail.class);
+		query.setParameter(0, order);
+		int result = query.executeUpdate();
+		return result;
+	}
 }

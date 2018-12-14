@@ -3,6 +3,7 @@ import { StationService } from '../station.service';
 import { Router } from '@angular/router';
 
 import { RestaurantService } from '../restaurant.service';
+import { Restaurant } from '../restaurants/restaurants.model'
 import { FoodService } from '../food.service';
 
 @Component({
@@ -12,29 +13,34 @@ import { FoodService } from '../food.service';
 })
 export class StationsComponent implements OnInit {
 	stations: Array<any>;
-	restaurants: Array<any>;
+	restaurants: Array<Restaurant>;
 	foodItems: Array<any>;
 	private anyErrors: boolean;
 	
-  constructor(private stationService: StationService, 
+	constructor(private stationService: StationService, 
 			private router: Router, 
 			private restService: RestaurantService, 
 			private foodService: FoodService) { }
 
-  ngOnInit() {
-    this.stationService.getAllStations().subscribe(data => {
-      this.stations = data;
-    });
-  }
-  
-  getRestaurantsForStation(filterVal: any) {
-	if(filterVal != "0") {
-		this.restService.getRestaurantsAtStation(filterVal).subscribe(data => 
-		{	return this.restaurants = data;	}, error => this.anyErrors = false, () => 
-				this.foodService.getFoodItemsAtRestaurants(this.restaurants).subscribe(data =>
-				{	return this.foodItems = data;	}
-				)
-		);
+	ngOnInit() {
+		this.stationService.getAllStations().subscribe(data => {
+			this.stations = data;
+		});
 	}
-  }
+  
+	getRestaurantsForStation(filterVal: any) {
+		if(filterVal != "0") {
+			this.restService.getRestaurantsAtStation(filterVal).subscribe(data => {
+				this.restaurants = data;
+				let names = [];
+				let i = 0;
+				for(var rest of data) {
+					names[i++] = rest.id;
+				}
+				this.foodService.getFoodItemsAtRestaurants(names).subscribe(food => {
+					this.foodItems = food;
+				});
+			});
+		}
+	}
 }
