@@ -51,7 +51,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/restaurant/{restaurantIds}")
-	public List<Food> getFoodAtRestaurants(@PathVariable String[] restaurantIds) {
+	public List<Food> getFoodAtRestaurants(@PathVariable Integer[] restaurantIds) {
 		List<Food> foodItems = foodDAO.getFoodItemsFromListOfRestaurantIds(Arrays.asList(restaurantIds));
 		return foodItems;
 	}

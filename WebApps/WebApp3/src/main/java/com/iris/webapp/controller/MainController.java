@@ -153,10 +153,10 @@ public class MainController {
 	private OrderDetail createOrderDetail(Foo foo) {
 		OrderDetail detail = new OrderDetail();
 		
-		int maxOrderId = orderDetailDAO.getMaxOrderId();
-		detail.setId(maxOrderId + 1);
-		List<Food> foodItemsFromListOfNames = foodDAO.getFoodItemsFromListOfRestaurantIds(foo.getCheckedItems());
-		detail.setFood(foodItemsFromListOfNames);
+//		int maxOrderId = orderDetailDAO.getMaxOrderId();
+//		detail.setId(maxOrderId + 1);
+//		List<Food> foodItemsFromListOfNames = foodDAO.getFoodItemsFromListOfRestaurantIds(foo.getCheckedItems());
+//		detail.setFood(foodItemsFromListOfNames);
 		return detail;
 	}
 

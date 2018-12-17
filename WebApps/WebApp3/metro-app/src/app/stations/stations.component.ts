@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { RestaurantService } from '../restaurant.service';
 import { Restaurant } from '../restaurants/restaurants.model'
 import { FoodService } from '../food.service';
+import { Food } from '../food/food.model'
 
 @Component({
   selector: 'app-stations',
@@ -14,8 +15,7 @@ import { FoodService } from '../food.service';
 export class StationsComponent implements OnInit {
 	stations: Array<any>;
 	restaurants: Array<Restaurant>;
-	foodItems: Array<any>;
-	private anyErrors: boolean;
+	foodItems: Array<Food>;
 	
 	constructor(private stationService: StationService, 
 			private router: Router, 

@@ -42,9 +42,9 @@ public class FoodDAO {
     	}
     }
 
-    public List<Food> getFoodItemsFromListOfRestaurantIds(List<String> ids) {
+    public List<Food> getFoodItemsFromListOfRestaurantIds(List<Integer> ids) {
     	try {
-    		String sql = "Select f from " + Food.class.getName() + " f where f.restaurant in (:ids)";
+    		String sql = "Select f from " + Food.class.getName() + " f where f.restaurant.id in (:ids)";
     		Session session = this.sessionFactory.getCurrentSession();
     		Query<Food> query = session.createQuery(sql, Food.class);
     		query.setParameterList("ids", ids);

@@ -7,13 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StationsComponent } from './stations/stations.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
+import { FoodComponent } from './food/food.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     StationsComponent,
-    RestaurantsComponent
+    RestaurantsComponent,
+    FoodComponent
   ],
   imports: [
     BrowserModule,

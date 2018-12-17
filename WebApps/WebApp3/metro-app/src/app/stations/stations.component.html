@@ -14,3 +14,9 @@
 		{{rest.name}}
 	</label>
 </div>
+<div>
+	<label *ngFor="let item of foodItems; let i = index">
+		<input type="checkbox" [attr.checked]="true">
+		{{item.name}}
+	</label>
+</div>
