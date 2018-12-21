@@ -45,7 +45,7 @@ export class StationsComponent implements OnInit {
 				i = 0;
 				this.foodService.getFoodItemsAtRestaurants(names).subscribe(food => {
 					for(var f of food) {
-						this.quantityPerItem = {id: f.id, value: 0};
+						this.quantityPerItem = {foodId: f.id, value: 0};
 					}
 					this.foodItems = food;
 				});
