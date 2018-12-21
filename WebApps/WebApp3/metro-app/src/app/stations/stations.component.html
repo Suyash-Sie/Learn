@@ -15,8 +15,12 @@
 	</label>
 </div>
 <div>
-	<label *ngFor="let item of foodItems; let i = index">
-		<input type="checkbox" [attr.checked]="true">
-		{{item.name}}
-	</label>
+	<ul>
+		<li *ngFor="let item of foodItems">
+			<span>{{item.name}}</span>
+			<button [disabled]="!enableRemove" (click)="decreaseQuantity(quantity)">-</button>
+			<input type = "text" style="width:20px;" [(ngModel)]="quantityPerItem[item.id].id">
+			<button (click)="increaseQuantity(quantity)">+</button>
+		</li>
+	</ul>
 </div>
