@@ -18,9 +18,9 @@
 	<ul>
 		<li *ngFor="let item of foodItems">
 			<span>{{item.name}}</span>
-			<button [disabled]="!enableRemove" (click)="decreaseQuantity(item.id, quantityPerItem[item.id].quant)">-</button>
-			<input type = "text" style="width:20px;" [(ngModel)]="quantityPerItem[item.id].quant">
-			<button (click)="increaseQuantity(item.id, quantityPerItem[item.id].quant)">+</button>
+			<button [disabled]="!enableRemove" (click)="decreaseQuantity(item.id, quantityPerItem.get(item.id))">-</button>
+			<input type = "text" style="width:20px;" [ngModel]="quantityPerItem.get(item.id)">
+			<button (click)="increaseQuantity(item.id, quantityPerItem.get(item.id))">+</button>
 		</li>
 	</ul>
 </div>

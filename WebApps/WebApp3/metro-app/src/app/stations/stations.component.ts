@@ -17,7 +17,7 @@ export class StationsComponent implements OnInit {
 	stations: Array<any>;
 	restaurants: Array<Restaurant>;
 	foodItems: Array<Food>;
-	quantityPerItem: Mapping[] = [];
+	quantityPerItem: Map<Number, Number>;
 	quantity : number = 0;
 	enableRemove: boolean = false;
 	
@@ -43,30 +43,25 @@ export class StationsComponent implements OnInit {
 					names[i++] = rest.id;
 				}
 				i = 0;
+				this.quantityPerItem = new Map();
 				this.foodService.getFoodItemsAtRestaurants(names).subscribe(food => {
 					for(var f of food) {
-						let newFood = {
-							"foodId" : f.id,
-							"quant" : 0
-						};
-						this.quantityPerItem.push(newFood);
+						this.quantityPerItem.set(f.id, 0);
 					}
-					console.log(this.quantityPerItem);
 					this.foodItems = food;
 				});
 			});
 		}
 	}
 	
-	increaseQuantity(value: number){
-		this.quantityPerItem
-        this.quantity = value + 1;
+	increaseQuantity(id: number, value: number){
+		this.quantityPerItem.set(id, value +1);
 		this.enableRemove = true;
     }
 	
-    decreaseQuantity(value: number){
-		this.quantity = value - 1;
-		if(this.quantity == 0)
+    decreaseQuantity(id: number, value: number){
+		this.quantityPerItem.set(id, value - 1);
+		if(value-1 == 0)
 			this.enableRemove = false;
 		else
 			this.enableRemove = true;
