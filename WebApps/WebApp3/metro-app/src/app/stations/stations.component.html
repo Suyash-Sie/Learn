@@ -10,7 +10,7 @@
 </div>
 <div>
 	<label *ngFor="let rest of restaurants; let i = index">
-		<input type="checkbox" [attr.checked]="true">
+		<input type="checkbox" [checked]=restCheckbox.get(rest.id) (change)="onRestSelection(rest.id, !restCheckbox.get(rest.id))">
 		{{rest.name}}
 	</label>
 </div>
@@ -18,7 +18,7 @@
 	<ul>
 		<li *ngFor="let item of foodItems">
 			<span>{{item.name}}</span>
-			<button [disabled]="!enableRemove" (click)="decreaseQuantity(item.id, quantityPerItem.get(item.id))">-</button>
+			<button [disabled]=disableRemove.get(item.id) (click)="decreaseQuantity(item.id, quantityPerItem.get(item.id))">-</button>
 			<input type = "text" style="width:20px;" [ngModel]="quantityPerItem.get(item.id)">
 			<button (click)="increaseQuantity(item.id, quantityPerItem.get(item.id))">+</button>
 		</li>
