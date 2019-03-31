@@ -10,7 +10,7 @@
 </div>
 <div>
 	<label *ngFor="let rest of restaurants; let i = index">
-		<input type="checkbox" [checked]=restCheckbox.get(rest.id) (change)="onRestSelection(rest.id, !restCheckbox.get(rest.id))">
+		<input type="checkbox" [disabled]=onlyOneRestaurant [checked]=restCheckbox.get(rest.id) (change)="onRestSelection(rest.id, !restCheckbox.get(rest.id))">
 		{{rest.name}}
 	</label>
 </div>
@@ -18,9 +18,17 @@
 	<ul>
 		<li *ngFor="let item of foodItems">
 			<span>{{item.name}}</span>
-			<button [disabled]=disableRemove.get(item.id) (click)="decreaseQuantity(item.id, quantityPerItem.get(item.id))">-</button>
+			<button [disabled]=disableRemove.get(item.id) (click)="decreaseQuantity(item, quantityPerItem.get(item.id))">-</button>
 			<input type = "text" style="width:20px;" [ngModel]="quantityPerItem.get(item.id)">
-			<button (click)="increaseQuantity(item.id, quantityPerItem.get(item.id))">+</button>
+			<button (click)="increaseQuantity(item, quantityPerItem.get(item.id))">+</button>
 		</li>
 	</ul>
+</div>
+<div>
+	<ul>
+		<li *ngFor="let item of itemsInCart | keyvalue">
+			{{item.key.name}} - {{item.key.price}} * {{item.value}}
+		</li>
+	</ul>
+	<span>Total = {{cartTotal}}</span>
 </div>

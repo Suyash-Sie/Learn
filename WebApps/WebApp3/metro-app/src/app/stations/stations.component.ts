@@ -21,7 +21,10 @@ export class StationsComponent implements OnInit {
 	quantity : number = 0;
 	disableRemove: Map<Number, boolean>;
 	restCheckbox: Map<Number, boolean>;
-	names: Array<Number>;
+	names: Array<number>;
+	onlyOneRestaurant: boolean = false;
+	itemsInCart: Map<Food, number>;
+	cartTotal: number;
 	
 	constructor(private stationService: StationService,
 			private router: Router,
@@ -40,12 +43,17 @@ export class StationsComponent implements OnInit {
 			this.restService.getRestaurantsAtStation(filterVal).subscribe(data => {
 				this.restaurants = data;
 				this.names = [];
+				this.itemsInCart = new Map();
 				let i = 0;
 				this.quantity = 0;
 				for(var rest of data) {
 					this.names[i++] = rest.id;
 					this.restCheckbox.set(rest.id, true);
 				}
+				if(i == 1)
+					this.onlyOneRestaurant = true;
+				else
+					this.onlyOneRestaurant = false;
 				this.quantityPerItem = new Map();
 				this.disableRemove = new Map();
 				this.populateFoodItems();
@@ -65,17 +73,30 @@ export class StationsComponent implements OnInit {
 		});
 	}
 	
-	increaseQuantity(id: number, value: number){
-		this.quantityPerItem.set(id, value + 1);
-		this.disableRemove.set(id, false);
+	increaseQuantity(item: Food, value: number){
+		this.quantityPerItem.set(item.id, value + 1);
+		this.disableRemove.set(item.id, false);
+		this.itemsInCart.set(item, value + 1);
+		this.cartTotal = 0;
+		this.itemsInCart.forEach((value: number, key: Food) => {
+       		this.cartTotal = this.cartTotal + (key.price * value);
+    	});
     }
 	
-    decreaseQuantity(id: number, value: number){
-		this.quantityPerItem.set(id, value - 1);
-		if(value - 1 == 0)
-			this.disableRemove.set(id, true);
-		else
-			this.disableRemove.set(id, false);
+    decreaseQuantity(item: Food, value: number){
+		this.quantityPerItem.set(item.id, value - 1);
+		if(value - 1 == 0) {
+			this.disableRemove.set(item.id, true);
+	    	this.itemsInCart.delete(item);
+		}
+		else {
+			this.disableRemove.set(item.id, false);
+			this.itemsInCart.set(item, value - 1);
+		}
+		this.cartTotal = 0;
+		this.itemsInCart.forEach((value: number, key: Food) => {
+       		this.cartTotal = this.cartTotal + (key.price * value);
+    	});
     }
     
     onRestSelection(id: number, value: boolean) {
