@@ -18,7 +18,6 @@ export class StationsComponent implements OnInit {
 	restaurants: Array<Restaurant>;
 	foodItems: Array<Food>;
 	quantityPerItem: Map<Number, Number>;
-	quantity : number = 0;
 	disableRemove: Map<Number, boolean>;
 	restCheckbox: Map<Number, boolean>;
 	names: Array<number>;
@@ -29,7 +28,10 @@ export class StationsComponent implements OnInit {
 	constructor(private stationService: StationService,
 			private router: Router,
 			private restService: RestaurantService,
-			private foodService: FoodService) { }
+			private foodService: FoodService) {
+				this.itemsInCart = new Map();
+				this.cartTotal = 0;
+			}
 
 	ngOnInit() {
 		this.stationService.getAllStations().subscribe(data => {
@@ -43,9 +45,7 @@ export class StationsComponent implements OnInit {
 			this.restService.getRestaurantsAtStation(filterVal).subscribe(data => {
 				this.restaurants = data;
 				this.names = [];
-				this.itemsInCart = new Map();
 				let i = 0;
-				this.quantity = 0;
 				for(var rest of data) {
 					this.names[i++] = rest.id;
 					this.restCheckbox.set(rest.id, true);
@@ -77,10 +77,7 @@ export class StationsComponent implements OnInit {
 		this.quantityPerItem.set(item.id, value + 1);
 		this.disableRemove.set(item.id, false);
 		this.itemsInCart.set(item, value + 1);
-		this.cartTotal = 0;
-		this.itemsInCart.forEach((value: number, key: Food) => {
-       		this.cartTotal = this.cartTotal + (key.price * value);
-    	});
+		this.calculateTotal();
     }
 	
     decreaseQuantity(item: Food, value: number){
@@ -93,10 +90,7 @@ export class StationsComponent implements OnInit {
 			this.disableRemove.set(item.id, false);
 			this.itemsInCart.set(item, value - 1);
 		}
-		this.cartTotal = 0;
-		this.itemsInCart.forEach((value: number, key: Food) => {
-       		this.cartTotal = this.cartTotal + (key.price * value);
-    	});
+		this.calculateTotal();
     }
     
     onRestSelection(id: number, value: boolean) {
@@ -107,5 +101,11 @@ export class StationsComponent implements OnInit {
     	} else
     		this.names.push(id);
     	this.populateFoodItems();
+    }
+    
+    calculateTotal() {
+		this.itemsInCart.forEach((value: number, key: Food) => {
+       		this.cartTotal = this.cartTotal + (key.price * value);
+    	});
     }
 }
