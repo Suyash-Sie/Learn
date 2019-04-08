@@ -22,16 +22,13 @@ export class StationsComponent implements OnInit {
 	restCheckbox: Map<Number, boolean>;
 	names: Array<number>;
 	onlyOneRestaurant: boolean = false;
-	itemsInCart: Map<Food, number>;
+	itemsInCart: Map<Food, number> = new Map();
 	cartTotal: number;
 	
 	constructor(private stationService: StationService,
 			private router: Router,
 			private restService: RestaurantService,
-			private foodService: FoodService) {
-				this.itemsInCart = new Map();
-				this.cartTotal = 0;
-			}
+			private foodService: FoodService) {}
 
 	ngOnInit() {
 		this.stationService.getAllStations().subscribe(data => {
@@ -104,8 +101,13 @@ export class StationsComponent implements OnInit {
     }
     
     calculateTotal() {
+    	this.cartTotal = 0;
 		this.itemsInCart.forEach((value: number, key: Food) => {
        		this.cartTotal = this.cartTotal + (key.price * value);
     	});
+    }
+    
+    onBuyNow() {
+    	
     }
 }
